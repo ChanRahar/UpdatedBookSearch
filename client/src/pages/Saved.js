@@ -83,7 +83,7 @@ class Search extends Component {
                                                         title={book.title}
                                                         href={book.infoLink}
                                                         authors={book.authors}
-                                                        ingredients={book.description}
+                                                        description={book.description}
                                                         thumbnail={book.image}
                                                         button={"Delete"}
                                                     />

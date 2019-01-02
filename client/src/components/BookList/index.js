@@ -3,7 +3,7 @@ import { Container, Row, Col } from "../Grid";
 import Button from "../Button";
 
 const block = {
-  display:"block",
+  display: "block",
   margin: "0 auto"
 }
 
@@ -18,17 +18,20 @@ export function Booklist({ children }) {
 export function BookListItem({
   thumbnail = "https://placehold.it/300x300",
   title,
-  ingredients,
+  description,
   href,
   button,
-  onClick
+  onClick,
+  authors
 }) {
+
+
   return (
     <li className="list-group-item">
       <Container>
         <Row>
           <Col size="md-3">
-            <img style ={block} className="rounded" src={thumbnail} />
+            <img style={block} className="rounded" src={thumbnail} />
           </Col>
           <Col size="md-9">
             <Button
@@ -38,14 +41,15 @@ export function BookListItem({
               {button}
             </Button>
             <a rel="noreferrer noopener" target="_blank" href={href} >
-            <Button
-              type="secondaryy"
-              size="btn-sm">
-              View
+              <Button
+                type="secondaryy"
+                size="btn-sm">
+                View
             </Button>
             </a>
             <h3>{title}</h3>
-            <p>Ingredients: {ingredients}</p>
+            <h4>Written By: {authors}</h4>
+            <p>Description: {description}</p>
           </Col>
         </Row>
       </Container>

@@ -48,10 +48,19 @@ class Search extends Component {
     API.getBooks(this.state.bookSearch)
       .then(res => {
         res.data.items.forEach(data => {
-          // console.log(data.volumeInfo.imageLinks.smallThumbnail);
+          let authors = data.volumeInfo.authors
+          // let authors = data.volumeInfo.authors.join().replace(",", " & ")
+
+          if(data.volumeInfo.authors===undefined){
+            authors = data.volumeInfo.authors
+          } else {
+            authors = data.volumeInfo.authors.join().replace(/,/gi, ", ");
+          }
+
+          console.log(data.volumeInfo.authors);
           bookData.push({
             title: data.volumeInfo.title,
-            authors: data.volumeInfo.authors,
+            authors: authors,
             description: data.volumeInfo.description,
             image: data.volumeInfo.imageLinks.thumbnail,
             infoLink: data.volumeInfo.infoLink,
@@ -116,7 +125,7 @@ class Search extends Component {
                             title={book.title}
                             href={book.infoLink}
                             authors={book.authors}
-                            ingredients={book.description}
+                            description={book.description}
                             thumbnail={book.image}
                             button={"Save"}
                           />
