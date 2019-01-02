@@ -12,7 +12,7 @@ const border = {
 
 let bookData = [];
 
-class Search extends Component {
+class Saved extends Component {
   state = {
     recipes: [],
     recipeSearch: ""
@@ -26,20 +26,6 @@ class Search extends Component {
       [name]: value
     });
   };
-
-  saveBook = (data) => {
-      API.saveBook({
-        title:title,
-        authors: data.authors,
-        description: data.description,
-        image: data.image,
-        infoLink: data.infoLink,
-        ISBN: data.ISBN
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-
-  }
 
   handleFormSubmit = event => {
     // When the form is submitted, prevent its default behavior, get recipes update the recipes state
@@ -71,38 +57,7 @@ class Search extends Component {
       <div>
         <Container>
           <div style={border}>
-            <Row>
-              <Col size="md-12">
-                <h2>Book Search</h2>
-                <br></br>
-                <h4>Book</h4>
-                <br></br>
-                <form>
-                  <Container>
-                    <Input
-                      name="recipeSearch"
-                      value={this.state.recipeSearch}
-                      onChange={this.handleInputChange}
-                      placeholder="Search For a Recipe"
-                    />
-                    <br></br>
-                    <Button
-                      onClick={this.handleFormSubmit}
-                      type="success"
-                      className="input-lg"
-                      size="btn-lg"
-                    >
-                      Search
-                      </Button>
-
-                  </Container>
-                </form>
-              </Col>
-            </Row>
-          </div>
-          <br></br>
-          <div style={border}>
-            <h4>Results</h4>
+            <h4>Saved Books</h4>
             <Row>
               <Col size="md-12">
                 {!this.state.recipes.length ? (
@@ -110,7 +65,6 @@ class Search extends Component {
                 ) : (
                     <RecipeList>
                       {this.state.recipes.map(recipe => {
-                        console.log(recipe)
                         return (
                           <RecipeListItem
                             key={recipe.ISBN}
@@ -119,8 +73,7 @@ class Search extends Component {
                             authors={recipe.authors}
                             ingredients={recipe.description}
                             thumbnail={recipe.image}
-                            onClick={() => this.saveBook(recipe)}
-                            button={"Save"}
+                            button = {"Delete"}
                           />
                         );
                       })}
@@ -135,4 +88,4 @@ class Search extends Component {
   }
 }
 
-export default Search;
+export default Saved;

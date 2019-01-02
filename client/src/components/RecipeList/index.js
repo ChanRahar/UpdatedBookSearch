@@ -1,6 +1,11 @@
 import React from "react";
-import Thumbnail from "../Thumbnail";
 import { Container, Row, Col } from "../Grid";
+import Button from "../Button";
+
+const block = {
+  display:"block",
+  margin: "0 auto"
+}
 
 // Exporting both RecipeList and RecipeListItem from this file
 
@@ -14,24 +19,45 @@ export function RecipeListItem({
   thumbnail = "https://placehold.it/300x300",
   title,
   ingredients,
-  href
+  href,
+  button,
+  onClick
 }) {
   return (
     <li className="list-group-item">
       <Container>
         <Row>
-          <Col size="xs-4 sm-2">
-            <Thumbnail src={thumbnail} />
+          <Col size="md-3">
+            <img style ={block} className="rounded" src={thumbnail} />
           </Col>
-          <Col size="xs-8 sm-9">
+          <Col size="md-9">
+            <Button
+              type="primary"
+              size="btn-sm"
+              onClick={onClick}>
+              {button}
+            </Button>
+            <a rel="noreferrer noopener" target="_blank" href={href} >
+            <Button
+              type="secondaryy"
+              size="btn-sm">
+              View
+            </Button>
+            </a>
             <h3>{title}</h3>
             <p>Ingredients: {ingredients}</p>
-            <a rel="noreferrer noopener" target="_blank" href={href}>
-              Go to recipe!
-            </a>
           </Col>
         </Row>
       </Container>
+      {/* <div className="card">
+        <h5 className="card-header">Featured</h5>
+        <div className="card-body">
+        <img className="card-img" src={thumbnail}/>
+          <h5 className="card-title">Special title treatment</h5>
+          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
+          <a href="#" className="btn btn-primary">Go somewhere</a>
+        </div>
+      </div> */}
     </li>
   );
 }
