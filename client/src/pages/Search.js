@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Input from "../components/Input";
 import Button from "../components/Button";
 import API from "../utils/API";
-import { RecipeList, RecipeListItem } from "../components/RecipeList";
+import { Booklist, BookListItem } from "../components/BookList";
 import { Container, Row, Col } from "../components/Grid";
 
 const border = {
@@ -14,8 +14,8 @@ let bookData = [];
 
 class Search extends Component {
   state = {
-    recipes: [],
-    recipeSearch: ""
+    books: [],
+    bookSearch: ""
   };
 
   handleInputChange = event => {
@@ -27,25 +27,25 @@ class Search extends Component {
     });
   };
 
-  saveBook = (data) => {
-      API.saveBook({
-        title:title,
-        authors: data.authors,
-        description: data.description,
-        image: data.image,
-        infoLink: data.infoLink,
-        ISBN: data.ISBN
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
+  // saveBook = (data) => {
+  //     API.saveBook({
+  //       title:title,
+  //       authors: data.authors,
+  //       description: data.description,
+  //       image: data.image,
+  //       infoLink: data.infoLink,
+  //       ISBN: data.ISBN
+  //     })
+  //       .then(res => this.loadBooks())
+  //       .catch(err => console.log(err));
 
-  }
+  // }
 
   handleFormSubmit = event => {
-    // When the form is submitted, prevent its default behavior, get recipes update the recipes state
+    // When the form is submitted, prevent its default behavior, get books update the books state
     event.preventDefault();
     bookData = [];
-    API.getRecipes(this.state.recipeSearch)
+    API.getBooks(this.state.bookSearch)
       .then(res => {
         res.data.items.forEach(data => {
           // console.log(data.volumeInfo.imageLinks.smallThumbnail);
@@ -58,12 +58,12 @@ class Search extends Component {
             ISBN: data.volumeInfo.industryIdentifiers[0].identifier
           })
 
-          this.setState({ recipes: bookData });
+          this.setState({ books: bookData });
         })
       })
       .catch(err => console.log(err));
 
-    this.setState({ recipeSearch: "" })
+    this.setState({ bookSearch: "" })
   };
 
   render() {
@@ -80,10 +80,10 @@ class Search extends Component {
                 <form>
                   <Container>
                     <Input
-                      name="recipeSearch"
-                      value={this.state.recipeSearch}
+                      name="bookSearch"
+                      value={this.state.bookSearch}
                       onChange={this.handleInputChange}
-                      placeholder="Search For a Recipe"
+                      placeholder="Search For a Book"
                     />
                     <br></br>
                     <Button
@@ -105,26 +105,24 @@ class Search extends Component {
             <h4>Results</h4>
             <Row>
               <Col size="md-12">
-                {!this.state.recipes.length ? (
+                {!this.state.books.length ? (
                   <h1 className="text-center">Search above to display books</h1>
                 ) : (
-                    <RecipeList>
-                      {this.state.recipes.map(recipe => {
-                        console.log(recipe)
+                    <Booklist>
+                      {this.state.books.map(book => {
                         return (
-                          <RecipeListItem
-                            key={recipe.ISBN}
-                            title={recipe.title}
-                            href={recipe.infoLink}
-                            authors={recipe.authors}
-                            ingredients={recipe.description}
-                            thumbnail={recipe.image}
-                            onClick={() => this.saveBook(recipe)}
+                          <BookListItem
+                            key={book.ISBN}
+                            title={book.title}
+                            href={book.infoLink}
+                            authors={book.authors}
+                            ingredients={book.description}
+                            thumbnail={book.image}
                             button={"Save"}
                           />
                         );
                       })}
-                    </RecipeList>
+                    </Booklist>
                   )}
               </Col>
             </Row>

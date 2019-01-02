@@ -7,15 +7,15 @@ const block = {
   margin: "0 auto"
 }
 
-// Exporting both RecipeList and RecipeListItem from this file
+// Exporting both BookList and BookListItem from this file
 
-// RecipeList renders a bootstrap list item
-export function RecipeList({ children }) {
+// BookList renders a bootstrap list item
+export function Booklist({ children }) {
   return <ul className="list-group">{children}</ul>;
 }
 
-// RecipeListItem renders a bootstrap list item containing data from the recipe api call
-export function RecipeListItem({
+// BookListItem renders a bootstrap list item containing data from the Book api call
+export function BookListItem({
   thumbnail = "https://placehold.it/300x300",
   title,
   ingredients,
@@ -49,15 +49,6 @@ export function RecipeListItem({
           </Col>
         </Row>
       </Container>
-      {/* <div className="card">
-        <h5 className="card-header">Featured</h5>
-        <div className="card-body">
-        <img className="card-img" src={thumbnail}/>
-          <h5 className="card-title">Special title treatment</h5>
-          <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" className="btn btn-primary">Go somewhere</a>
-        </div>
-      </div> */}
     </li>
   );
 }
