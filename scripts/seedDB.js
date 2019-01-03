@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const db = require("../models/book");
+const db = require("../models/");
 
 // This file empties the Books collection and inserts the books below
 
@@ -19,8 +19,6 @@ const bookSeed = [
     date: new Date(Date.now())
   },
 ];
-
-console.log(db.Book)
 
 db.Book
   .remove({})

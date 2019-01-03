@@ -16,7 +16,7 @@ export function Booklist({ children }) {
 
 // BookListItem renders a bootstrap list item containing data from the Book api call
 export function BookListItem({
-  thumbnail = "https://placehold.it/300x300",
+  thumbnail,
   title,
   description,
   href,
@@ -31,7 +31,7 @@ export function BookListItem({
       <Container>
         <Row>
           <Col size="md-3">
-            <img style={block} className="rounded" src={thumbnail} />
+            <img style={block} className="rounded" src={thumbnail} alt={title} />
           </Col>
           <Col size="md-9">
             <Button

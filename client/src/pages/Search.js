@@ -48,7 +48,9 @@ class Search extends Component {
     API.getBooks(this.state.bookSearch)
       .then(res => {
         res.data.items.forEach(data => {
-          let authors = data.volumeInfo.authors
+          console.log(data.volumeInfo)
+          let authors = ""
+          let image = ""
           // let authors = data.volumeInfo.authors.join().replace(",", " & ")
 
           if(data.volumeInfo.authors===undefined){
@@ -57,12 +59,18 @@ class Search extends Component {
             authors = data.volumeInfo.authors.join().replace(/,/gi, ", ");
           }
 
+          if(data.volumeInfo.imageLinks===undefined){
+            image = "https://placehold.it/128x196"
+          } else {
+            image = data.volumeInfo.imageLinks.thumbnail;
+          }
+
           console.log(data.volumeInfo.authors);
           bookData.push({
             title: data.volumeInfo.title,
             authors: authors,
             description: data.volumeInfo.description,
-            image: data.volumeInfo.imageLinks.thumbnail,
+            image: image,
             infoLink: data.volumeInfo.infoLink,
             ISBN: data.volumeInfo.industryIdentifiers[0].identifier
           })
