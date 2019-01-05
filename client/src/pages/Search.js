@@ -27,19 +27,19 @@ class Search extends Component {
     });
   };
 
-  // saveBook = (data) => {
-  //     API.saveBook({
-  //       title:title,
-  //       authors: data.authors,
-  //       description: data.description,
-  //       image: data.image,
-  //       infoLink: data.infoLink,
-  //       ISBN: data.ISBN
-  //     })
-  //       .then(res => this.loadBooks())
-  //       .catch(err => console.log(err));
+  saveBook = (data) => {
+      API.saveBook({
+        title:data.title,
+        authors: data.authors,
+        description: data.description,
+        image: data.image,
+        infoLink: data.infoLink,
+        ISBN: data.ISBN
+      })
+        .then(res => alert("Book Saved"))
+        .catch(err => console.log(err));
 
-  // }
+  }
 
   handleFormSubmit = event => {
     // When the form is submitted, prevent its default behavior, get books update the books state
@@ -48,7 +48,7 @@ class Search extends Component {
     API.getBooks(this.state.bookSearch)
       .then(res => {
         res.data.items.forEach(data => {
-          console.log(data.volumeInfo)
+          // console.log(data.volumeInfo)
           let authors = ""
           let image = ""
           // let authors = data.volumeInfo.authors.join().replace(",", " & ")
@@ -65,7 +65,6 @@ class Search extends Component {
             image = data.volumeInfo.imageLinks.thumbnail;
           }
 
-          console.log(data.volumeInfo.authors);
           bookData.push({
             title: data.volumeInfo.title,
             authors: authors,
@@ -135,6 +134,7 @@ class Search extends Component {
                             authors={book.authors}
                             description={book.description}
                             thumbnail={book.image}
+                            onClick={() => this.saveBook(book)}
                             button={"Save"}
                           />
                         );

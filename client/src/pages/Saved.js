@@ -16,6 +16,23 @@ class Search extends Component {
     state = {
         savedBooks: []
     };
+    componentDidMount() {
+        this.loadBooks();
+      }
+
+    loadBooks = () => {
+        API.getSavedBooks()
+          .then(res =>
+            this.setState({ savedBooks: res.data})
+          )
+          .catch(err => console.log(err));
+      };
+
+      deleteBook = id => {
+        API.deleteBook(id)
+          .then(res => this.loadBooks())
+          .catch(err => console.log(err));
+      };
 
     //   handleInputChange = event => {
     //     // Destructure the name and value properties off of event.target
@@ -86,6 +103,7 @@ class Search extends Component {
                                                         description={book.description}
                                                         thumbnail={book.image}
                                                         button={"Delete"}
+                                                        onClick={() => this.deleteBook(book._id)}
                                                     />
                                                 );
                                             })}

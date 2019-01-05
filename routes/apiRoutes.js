@@ -2,7 +2,7 @@ const axios = require("axios");
 const router = require("express").Router();
 const booksController = require("../controllers/booksController");
 
-router.get("/recipes", (req, res) => {
+router.get("/googleBooks", (req, res) => {
   axios
     .get("https://www.googleapis.com/books/v1/volumes", { params: req.query })
     .then(({ data: { results } }) => res.json(results))
@@ -16,7 +16,8 @@ router.route("/books")
 
 // Matches with "/api/books/:id"
 router
-  .route("books/:id")
+  .route("/books/:id")
+  .get(booksController.findById)
   .delete(booksController.remove);
 
 module.exports = router;

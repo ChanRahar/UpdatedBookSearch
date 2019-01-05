@@ -11,17 +11,20 @@ export default {
     });
   }, 
 
-  // // Saves a book to the database
-  // saveBook: (bookData) => {
-  //   return axios.post("/api/books", bookData);
-  // },
+  // Saves a book to the database
+  saveBook: (bookData) => {
+    return axios.post("/api/books", bookData);
+  },
 
-  // // Gets all books
-  // getBooks: () => {
-  //   return axios.get("/api/books");
-  // },
-
-  // deleteBook: (id) => {
-  //   return axios.delete("/api/books/" + id);
-  // }  
+  // Gets all books
+  getSavedBooks: () => {
+    return axios.get("/api/books");
+  },
+   // Gets the book with the given id
+   getOneBook: function(id) {
+    return axios.get("/api/books/" + id);
+  },
+  deleteBook: (id) => {
+    return axios.delete("/api/books/" + id);
+  }  
 };
