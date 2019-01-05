@@ -21,8 +21,8 @@ export default {
     return axios.get("/api/books");
   },
    // Gets the book with the given id
-   getOneBook: function(id) {
-    return axios.get("/api/books/" + id);
+   getOneBook: function(ISBN) {
+    return axios.get("/api/books/" + ISBN);
   },
   deleteBook: (id) => {
     return axios.delete("/api/books/" + id);

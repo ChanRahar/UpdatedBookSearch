@@ -28,16 +28,24 @@ class Search extends Component {
   };
 
   saveBook = (data) => {
-      API.saveBook({
-        title:data.title,
-        authors: data.authors,
-        description: data.description,
-        image: data.image,
-        infoLink: data.infoLink,
-        ISBN: data.ISBN
+    API.getOneBook(data.ISBN)
+      .then(res => {
+        if (res.data === null) {
+          API.saveBook({
+                title: data.title,
+                authors: data.authors,
+                description: data.description,
+                image: data.image,
+                infoLink: data.infoLink,
+                ISBN: data.ISBN
+              })
+                .then(alert("Book Saved"))
+                .catch(err => console.log(err));
+        } else{
+          alert("Book Already Saved")
+        }
       })
-        .then(res => alert("Book Saved"))
-        .catch(err => console.log(err));
+      .catch(err => console.log(err));
 
   }
 
@@ -53,13 +61,13 @@ class Search extends Component {
           let image = ""
           // let authors = data.volumeInfo.authors.join().replace(",", " & ")
 
-          if(data.volumeInfo.authors===undefined){
+          if (data.volumeInfo.authors === undefined) {
             authors = data.volumeInfo.authors
           } else {
             authors = data.volumeInfo.authors.join().replace(/,/gi, ", ");
           }
 
-          if(data.volumeInfo.imageLinks===undefined){
+          if (data.volumeInfo.imageLinks === undefined) {
             image = "https://placehold.it/128x196"
           } else {
             image = data.volumeInfo.imageLinks.thumbnail;

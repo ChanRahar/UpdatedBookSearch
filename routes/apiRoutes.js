@@ -2,13 +2,6 @@ const axios = require("axios");
 const router = require("express").Router();
 const booksController = require("../controllers/booksController");
 
-router.get("/googleBooks", (req, res) => {
-  axios
-    .get("https://www.googleapis.com/books/v1/volumes", { params: req.query })
-    .then(({ data: { results } }) => res.json(results))
-    .catch(err => res.status(422).json(err));
-});
-
 // Matches with "/api/books"
 router.route("/books")
   .get(booksController.findAll)
@@ -17,7 +10,11 @@ router.route("/books")
 // Matches with "/api/books/:id"
 router
   .route("/books/:id")
-  .get(booksController.findById)
   .delete(booksController.remove);
+
+router
+  .route("/books/:ISBN")
+  .get(booksController.findOne);
+
 
 module.exports = router;
