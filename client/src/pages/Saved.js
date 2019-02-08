@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import Input from "../components/Input";
-import Button from "../components/Button";
 import API from "../utils/API";
 import { Booklist, BookListItem } from "../components/BookList";
 import { Container, Row, Col } from "../components/Grid";
@@ -34,29 +32,6 @@ class Search extends Component {
           .catch(err => console.log(err));
       };
 
-    //   handleInputChange = event => {
-    //     // Destructure the name and value properties off of event.target
-    //     // Update the appropriate state
-    //     const { name, value } = event.target;
-    //     this.setState({
-    //       [name]: value
-    //     });
-    //   };
-
-    // saveBook = (data) => {
-    //     API.saveBook({
-    //       title:title,
-    //       authors: data.authors,
-    //       description: data.description,
-    //       image: data.image,
-    //       infoLink: data.infoLink,
-    //       ISBN: data.ISBN
-    //     })
-    //       .then(res => this.loadBooks())
-    //       .catch(err => console.log(err));
-
-    // }
-
     handleFormSubmit = event => {
         // When the form is submitted, prevent its default behavior, get books update the books state
         event.preventDefault();
@@ -84,7 +59,7 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
+            <div className="pt-5">
                 <Container>
                     <div style={border}>
                         <h4>Saved Books</h4>

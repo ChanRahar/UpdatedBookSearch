@@ -4,3 +4,15 @@ nav.navbar {
   width:100%;
   z-index:100;
 }
+
+.dropdown-toggle{
+  cursor: pointer;
+}
+
+.nav-item{
+  font-size: 17px;
+}
+
+.navbar-brand {
+  font-size: 20px;
+}

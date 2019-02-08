@@ -4,6 +4,7 @@ import Button from "../components/Button";
 import API from "../utils/API";
 import { Booklist, BookListItem } from "../components/BookList";
 import { Container, Row, Col } from "../components/Grid";
+import Jumbotron from "../components/Jumbotron";
 
 const border = {
   border: "1px solid ",
@@ -32,16 +33,16 @@ class Search extends Component {
       .then(res => {
         if (res.data === null) {
           API.saveBook({
-                title: data.title,
-                authors: data.authors,
-                description: data.description,
-                image: data.image,
-                infoLink: data.infoLink,
-                ISBN: data.ISBN
-              })
-                .then(alert("Book Saved"))
-                .catch(err => console.log(err));
-        } else{
+            title: data.title,
+            authors: data.authors,
+            description: data.description,
+            image: data.image,
+            infoLink: data.infoLink,
+            ISBN: data.ISBN
+          })
+            .then(alert("Book Saved"))
+            .catch(err => console.log(err));
+        } else {
           alert("Book Already Saved")
         }
       })
@@ -55,11 +56,11 @@ class Search extends Component {
     bookData = [];
     API.getBooks(this.state.bookSearch)
       .then(res => {
+
+        console.log(res.data)
         res.data.items.forEach(data => {
-          // console.log(data.volumeInfo)
           let authors = ""
           let image = ""
-          // let authors = data.volumeInfo.authors.join().replace(",", " & ")
 
           if (data.volumeInfo.authors === undefined) {
             authors = data.volumeInfo.authors
@@ -93,6 +94,7 @@ class Search extends Component {
   render() {
     return (
       <div>
+        <Jumbotron />
         <Container>
           <div style={border}>
             <Row>
