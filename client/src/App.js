@@ -4,6 +4,7 @@ import Nav from "./components/Nav";
 import Search from "./pages/Search";
 import Saved from "./pages/Saved";
 import UserAuth from "./pages/UserAuth";
+import SignOut from "./pages/SignOut"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route exact path="/SignIn" component={UserAuth} />
           <Route exact path="/SignUp" component={UserAuth} />
           <Route exact path="/Password" component={UserAuth} />
+          <Route exact path="/SignOut" component={SignOut} />
         </Switch>
         </div>
       </div>

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Container } from "../components/Grid";
 import UserForm from "../components/UserForms";
-// import SignUp from "../components/SignUp";
-// import PassReset from "../components/PassReset";
-// import API from "../utils/API"
+import API from "../utils/API"
 
 
 class UserAuth extends Component {
@@ -25,47 +23,45 @@ class UserAuth extends Component {
       });
     };
 
-  //   handleSignIn = event => {
-  //     // Preventing the default behavior of the form submit (which is to refresh the page)
-  //     event.preventDefault();
+    handleSignIn = event => {
+      // Preventing the default behavior of the form submit (which is to refresh the page)
+      event.preventDefault();
 
-  //     API.login({
-  //       email: this.state.email,
-  //       password: this.state.password
-  //     })
-  //       .then((response) => {
-  //         console.log(response);
-  //         this.setState({ loggedIn: true, username: response.data.username });
-  //         alert(`Welcome ${this.state.username}`)
-  //         window.location.href = "/"
-  //       })
-  //       .catch(() => alert("Wrong Credential, Please try again"));
+      API.signIn({
+        email: this.state.email,
+        password: this.state.password
+      })
+        .then((response) => {
+          this.setState({ loggedIn: true, username: response.data.username });
+          alert(`Welcome ${this.state.username}`)
+          window.location.href = "/"
+        })
+        .catch(() => alert("Wrong Credential, Please try again"));
 
-  //     // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
-  //     // alert(`Hello ${this.state.email} ${this.state.password}`);
-  //     this.setState({
-  //       email: "",
-  //       password: ""
-  //     });
-  //   };
+      // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
+      // alert(`Hello ${this.state.email} ${this.state.password}`);
+      this.setState({
+        email: "",
+        password: ""
+      });
+    };
 
     handleSignUp = event => {
       // Preventing the default behavior of the form submit (which is to refresh the page)
       event.preventDefault();
 
-      // API.signUp({
-      //   username: this.state.username,
-      //   email: this.state.email,
-      //   password: this.state.password
-      // })
-      //   .then(() => {
-      //     alert("Register Complete");
+      API.signUp({
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password
+      })
+        .then(() => {
+          alert("Register Complete");
 
-      //     window.location.href = "/SignIn"
-      //   })
-      //   .catch(() => alert("Try another Username or Email Already Used"));
+          window.location.href = "/SignIn"
+        })
+        .catch(() => alert("Try another Username or Email Already Used"));
 
-      console.log(this.state.username, this.state.email, this.state.password);
 
       // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
       // alert(`Hello ${this.state.username} ${this.state.email} ${this.state.password}`);
@@ -76,45 +72,43 @@ class UserAuth extends Component {
       });
     };
 
-  //   handlePassReset = event => {
-  //     // Preventing the default behavior of the form submit (which is to refresh the page)
-  //     event.preventDefault();
+    handlePassReset = event => {
+      // Preventing the default behavior of the form submit (which is to refresh the page)
+      event.preventDefault();
 
-  //     API.passReset(
-  //       this.state.username,
-  //       this.state.email,
-  //       {
-  //         password: this.state.password
-  //       })
-  //       .then((response) => {
-  //         console.log(response);
-  //         alert(`Password is Changed`)
-  //         window.location.href = "/Login"
-  //       })
-  //       .catch(() => alert("Wrong username or email, Please try again"));
+      API.passReset(
+        this.state.username,
+        this.state.email,
+        {
+          password: this.state.password
+        })
+        .then((response) => {
+          alert(`Password is Changed`)
+          window.location.href = "/SignIn"
+        })
+        .catch(() => alert("Wrong username or email, Please try again"));
 
-  //     // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
-  //     // alert(`Hello ${this.state.email} ${this.state.password}`);
-  //     this.setState({
-  //       username: "",
-  //       email: "",
-  //       password: ""
-  //     });
-  //   };
+      // Alert the user their first and last name, clear `this.state.firstName` and `this.state.lastName`, clearing the inputs
+      // alert(`Hello ${this.state.email} ${this.state.password}`);
+      this.setState({
+        username: "",
+        email: "",
+        password: ""
+      });
+    };
 
-  //   componentDidMount() {
+    componentDidMount() {
 
-  //     // Check session data to see if user should be logged in
-  //     API.signedIn()
-  //       .then(response => {
-  //         console.log(response);
-  //         if (response.data.loggedIn) {
-  //           this.setState({ loggedIn: true, username: response.data.username });
-  //         } else {
-  //           console.log("No logged in user stored in session");
-  //         }
-  //       });
-  //   }
+      // Check session data to see if user should be logged in
+      API.signedIn()
+        .then(response => {
+          if (response.data.loggedIn) {
+            this.setState({ loggedIn: true, username: response.data.username });
+          } else {
+            console.log("No logged in user stored in session");
+          }
+        });
+    }
 
   render() {
     const renderForm = () => {
@@ -164,7 +158,6 @@ class UserAuth extends Component {
 
     return (
       <Container>
-        {this.state.username} {this.state.email} {this.state.password}
         {renderForm()}
       </Container>
     );

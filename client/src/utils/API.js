@@ -9,22 +9,41 @@ export default {
         q: query
       }
     });
-  }, 
-
-  // Saves a book to the database
-  saveBook: (bookData) => {
-    return axios.post("/api/books", bookData);
   },
 
-  // Gets all books
-  getSavedBooks: () => {
-    return axios.get("/api/books");
+  // Passport Account Related 
+  signUp: (userData) => {
+    return axios.post("/api/sign_up", userData);
   },
-   // Gets the book with the given id
-   getOneBook: function(ISBN) {
-    return axios.get("/api/books/" + ISBN);
+
+  signIn: (userData) => {
+    return axios.post("/api/sign_in", userData);
   },
+
+  signedIn: () => {
+    return axios.get("/api/user_data")
+  },
+
+  signOut: () => {
+    return axios.get("/api/sign_out")
+  },
+
+  passReset: function (username, email, userData) {
+    return axios.put(`/api/allUsers/${username}/${email}`, userData);
+  },
+
+  // Saves a book to the database for the specific user
+  saveBook: (id, bookData) => {
+    return axios.post(`/api/allUsers/${id}`, bookData);
+  },
+
+  // Gets all books saved by a user
+  getSavedBooks: (id) => {
+    return axios.get(`/api/allUsers/${id}`);
+  },
+
+  // Delete saved book
   deleteBook: (id) => {
     return axios.delete("/api/books/" + id);
-  }  
+  },
 };

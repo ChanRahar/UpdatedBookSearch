@@ -15,22 +15,35 @@ class Search extends Component {
         savedBooks: []
     };
     componentDidMount() {
+
+        // Check session data to see if user should be logged in
+        API.signedIn()
+            .then(response => {
+                if (response.data.loggedIn) {
+                    this.setState({ loggedIn: true, username: response.data.username, id: response.data.id });
+                } else {
+                    console.log("No logged in user stored in session");
+                }
+            });
+    };
+
+    componentDidUpdate() {
         this.loadBooks();
-      }
+    };
 
     loadBooks = () => {
-        API.getSavedBooks()
-          .then(res =>
-            this.setState({ savedBooks: res.data})
-          )
-          .catch(err => console.log(err));
-      };
+        API.getSavedBooks(this.state.id)
+            .then(res =>
+                this.setState({ savedBooks: res.data })
+            )
+            .catch(err => console.log(err));
+    };
 
-      deleteBook = id => {
+    deleteBook = id => {
         API.deleteBook(id)
-          .then(res => this.loadBooks())
-          .catch(err => console.log(err));
-      };
+            .then(res => this.loadBooks())
+            .catch(err => console.log(err));
+    };
 
     handleFormSubmit = event => {
         // When the form is submitted, prevent its default behavior, get books update the books state
@@ -39,7 +52,6 @@ class Search extends Component {
         API.getBooks(this.state.bookSearch)
             .then(res => {
                 res.data.items.forEach(data => {
-                    // console.log(data.volumeInfo.imageLinks.smallThumbnail);
                     bookData.push({
                         title: data.volumeInfo.title,
                         authors: data.volumeInfo.authors,
@@ -66,7 +78,7 @@ class Search extends Component {
                         <Row>
                             <Col size="md-12">
                                 {!this.state.savedBooks.length ? (
-                                   null) : (
+                                    null) : (
                                         <Booklist>
                                             {this.state.savedBooks.map(book => {
                                                 return (

@@ -29,66 +29,78 @@ class Search extends Component {
   };
 
   saveBook = (data) => {
-    API.getOneBook(data.ISBN)
-      .then(res => {
-        if (res.data === null) {
-          API.saveBook({
-            title: data.title,
-            authors: data.authors,
-            description: data.description,
-            image: data.image,
-            infoLink: data.infoLink,
-            ISBN: data.ISBN
-          })
-            .then(alert("Book Saved"))
-            .catch(err => console.log(err));
-        } else {
-          alert("Book Already Saved")
-        }
-      })
-      .catch(err => console.log(err));
-
+    if (this.state.loggedIn) {
+      API.saveBook(this.state.id,
+        {
+          title: data.title,
+          authors: data.authors,
+          description: data.description,
+          image: data.image,
+          infoLink: data.infoLink,
+          ISBN: data.ISBN
+        })
+        .then(() => alert("Book Saved"))
+        .catch(err => console.log(err));
+    }
+    else {
+      alert("Please log in to save a book")
+    }
   }
 
   handleFormSubmit = event => {
     // When the form is submitted, prevent its default behavior, get books update the books state
     event.preventDefault();
+
+    let bookSearch = this.state.bookSearch
     bookData = [];
-    API.getBooks(this.state.bookSearch)
-      .then(res => {
+    if (bookSearch !== "") {
+      API.getBooks(bookSearch)
+        .then(res => {
+          res.data.items.forEach(data => {
+            let authors = ""
+            let image = ""
 
-        console.log(res.data)
-        res.data.items.forEach(data => {
-          let authors = ""
-          let image = ""
+            if (data.volumeInfo.authors === undefined) {
+              authors = data.volumeInfo.authors
+            } else {
+              authors = data.volumeInfo.authors.join().replace(/,/gi, ", ");
+            }
 
-          if (data.volumeInfo.authors === undefined) {
-            authors = data.volumeInfo.authors
-          } else {
-            authors = data.volumeInfo.authors.join().replace(/,/gi, ", ");
-          }
+            if (data.volumeInfo.imageLinks === undefined) {
+              image = "https://placehold.it/128x196"
+            } else {
+              image = data.volumeInfo.imageLinks.thumbnail;
+            }
 
-          if (data.volumeInfo.imageLinks === undefined) {
-            image = "https://placehold.it/128x196"
-          } else {
-            image = data.volumeInfo.imageLinks.thumbnail;
-          }
+            bookData.push({
+              title: data.volumeInfo.title,
+              authors: authors,
+              description: data.volumeInfo.description,
+              image: image,
+              infoLink: data.volumeInfo.infoLink,
+              ISBN: data.volumeInfo.industryIdentifiers[0].identifier
+            })
 
-          bookData.push({
-            title: data.volumeInfo.title,
-            authors: authors,
-            description: data.volumeInfo.description,
-            image: image,
-            infoLink: data.volumeInfo.infoLink,
-            ISBN: data.volumeInfo.industryIdentifiers[0].identifier
+            this.setState({ books: bookData });
           })
-
-          this.setState({ books: bookData });
         })
-      })
-      .catch(err => console.log(err));
+        .catch((err) => console.log(err));
 
-    this.setState({ bookSearch: "" })
+      this.setState({ bookSearch: "" })
+    }
+  };
+
+  componentDidMount() {
+
+    // Check session data to see if user should be logged in
+    API.signedIn()
+      .then(response => {
+        if (response.data.loggedIn) {
+          this.setState({ loggedIn: true, username: response.data.username, id: response.data.id });
+        } else {
+          console.log("No logged in user stored in session");
+        }
+      });
   };
 
   render() {

@@ -64,10 +64,9 @@ function UserForm({ children, onSubmit, onChange, email, password, title }) {
                     {window.location.pathname === "/SignIn" ? (
                         <div>
                         <Link to="/Password" className="float-right">Forgot Password?</Link>
+                        <br />
                     </div>
                     ) :(null)}
-           
-                    <br />
 
                     <div className={window.location.pathname === "/SignIn" ? "form-group row mt-3" : "form-group row" }>
                         <div className="col-sm-12">
