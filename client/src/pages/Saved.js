@@ -38,7 +38,7 @@ class Search extends Component {
 
     deleteBook = id => {
         API.deleteBook(id)
-            .then(res => this.loadBooks())
+            .then(() => window.location.reload())
             .catch(err => console.log(err));
     };
 
