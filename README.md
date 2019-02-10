@@ -4,6 +4,9 @@ This React application uses the Google Books API to search any books. User can c
 
 Try the application here: https://googlebooks-search.herokuapp.com/
 
+<p align="center">
+<img  src="https://github.com/ChanRahar/UpdatedGoogleBook/blob/master/client/public/googlebook.png">
+</p>
 
 <b>Built with</b>
 - [MongoDB](https://www.mongodb.com/)
