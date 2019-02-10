@@ -1,6 +1,6 @@
 # Google-Book-Search
 
-Search books a book using this React Web Application that uses the Google Book API. User can create an account to save a book that the user can view at later time. Once a book is saved, the user has the option to delete the saved book.
+The Google-Book-Search web application is a MERN web application that allows a user to search for books using the Google Books API. User can create an account to save a book that the user can view at later time. Once a book is saved, the user has the option to delete the saved book.
 
 Try the application here: https://googlebooks-search.herokuapp.com/
 Email: admin@mail.com
