@@ -21,18 +21,15 @@ class Search extends Component {
             .then(response => {
                 if (response.data.loggedIn) {
                     this.setState({ loggedIn: true, username: response.data.username, id: response.data.id });
+                    this.loadBooks(this.state.id);
                 } else {
                     console.log("No logged in user stored in session");
                 }
             });
     };
 
-    componentDidUpdate() {
-        this.loadBooks();
-    };
-
-    loadBooks = () => {
-        API.getSavedBooks(this.state.id)
+    loadBooks = (id) => {
+        API.getSavedBooks(id)
             .then(res =>
                 this.setState({ savedBooks: res.data })
             )
