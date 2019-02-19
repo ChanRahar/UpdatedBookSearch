@@ -10,6 +10,11 @@ Password: admin
 <img  src="https://github.com/ChanRahar/UpdatedGoogleBook/blob/master/client/public/googlebook.png">
 </p>
 
+## Demo
+<p align="center">
+<img  src="https://github.com/ChanRahar/UpdatedGoogleBook/blob/master/client/public/demo.gif">
+</p>
+
 <b>Built with</b>
 - [MongoDB](https://www.mongodb.com/)
 - [Mongoose](https://mongoosejs.com/)
@@ -31,7 +36,7 @@ This should install node modules within the server and the client folder.
 After both installations complete, run the following command in your terminal:
 
 ```
-npm i
+npm start
 ```
 
 Your app should now be running on <http://localhost:8800>. The Express server should intercept any AJAX requests from the client.
